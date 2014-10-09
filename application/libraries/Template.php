@@ -538,11 +538,11 @@ class CI_Template {
 
             if ($type == "js")
             {
-                $this->add_js($uri);
+                $this->_add_js($uri);
             }
             else if ($type == "css")
             {
-                $this->add_css($uri);
+                $this->_add_css($uri);
             }
             return $uri;
          }
@@ -566,8 +566,23 @@ class CI_Template {
     * @param   boolean  TRUE to use 'defer' attribute, FALSE to exclude it
     * @return  TRUE on success, FALSE otherwise
     */
-
    function add_js($script, $type = 'import', $defer = FALSE)
+   {
+       switch ($type)
+       {
+          case 'import':
+             if ($this->import($script))
+             {
+                return TRUE;
+             }
+             // Can't find the compressed resource, use normal one
+             // FALL THROUGH
+          default:
+             return $this->_add_js($script, $type, $defer);
+       }
+   }
+
+   function _add_js($script, $type = 'import', $defer = FALSE)
    {
       $success = TRUE;
       $js = NULL;
@@ -625,8 +640,23 @@ class CI_Template {
     * @param   string  media attribute to use with 'link' type only, FALSE for none
     * @return  TRUE on success, FALSE otherwise
     */
-
    function add_css($style, $type = 'link', $media = FALSE)
+   {
+      switch ($type)
+      {
+         case 'link':
+            if ($this->import($style))
+            {
+               return TRUE;
+            }
+            // Can't find the compressed resource, use normal one
+            // FALL THROUGH
+         default:
+            return $this->_add_css($style, $type, $media);
+      }
+   }
+
+   function _add_css($style, $type = 'link', $media = FALSE)
    {
       $success = TRUE;
       $css = NULL;
