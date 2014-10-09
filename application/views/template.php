@@ -4,7 +4,7 @@
     <?= $_styles ?>
 </head>
 <body>
-    <?= $child ?>
+    <?= $this->load->view('regions/child') ?>
     <div>我是父模板的内容</div>
 
     <?= $_scripts ?>
