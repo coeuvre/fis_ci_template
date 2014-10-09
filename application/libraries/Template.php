@@ -606,7 +606,7 @@ class CI_Template {
       if ($js != NULL && !in_array($js, $this->js))
       {
          $this->js[] = $js;
-         $this->write('_scripts', $js);
+         //$this->write('_scripts', $js);
       }
 
       return $success;
@@ -665,7 +665,7 @@ class CI_Template {
       if ($css != NULL && !in_array($css, $this->css))
       {
          $this->css[] = $css;
-         $this->write('_styles', $css);
+         //$this->write('_styles', $css);
       }
 
       return $success;
